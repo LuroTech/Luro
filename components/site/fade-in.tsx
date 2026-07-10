@@ -3,13 +3,13 @@
 import { motion, type Variants } from "framer-motion";
 
 const fadeUpVariants: Variants = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, y: 30 },
     visible: (i: number) => ({
         opacity: 1,
         y: 0,
         transition: {
-            duration: 0.7,
-            delay: i * 0.1,
+            duration: 1,
+            delay: i * 0.15,
             ease: [0.25, 0.4, 0.25, 1],
         },
     }),

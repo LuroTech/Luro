@@ -1,4 +1,7 @@
+"use client";
+
 import { Hexagon } from "lucide-react";
+import { FadeIn } from "@/components/site/fade-in";
 
 function XIcon({ className }: { className?: string }) {
     return (
@@ -44,14 +47,17 @@ const socialLinks = [
 function Footer() {
     return (
         <footer className="w-full bg-[#030303]">
-            <div className="container mx-auto px-4 pb-28 pt-12 md:px-6 md:py-20">
-                <div className="flex items-center justify-between">
+            <div className="container mx-auto px-4 pb-28 pt-16 md:px-6 md:py-20">
+                <FadeIn className="flex items-center justify-between">
                     <a
                         href="#top"
-                        className="inline-flex items-center gap-3 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
+                        className="group inline-flex items-center gap-3 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
                     >
-                        <Hexagon className="h-8 w-8 text-white md:h-9 md:w-9" strokeWidth={2.25} />
-                        <span className="text-lg font-bold tracking-tight text-white md:text-xl">
+                        <Hexagon
+                            className="h-9 w-9 text-white transition-transform duration-500 group-hover:rotate-90"
+                            strokeWidth={2.25}
+                        />
+                        <span className="text-xl font-bold tracking-tight text-white">
                             Luro Tech
                         </span>
                     </a>
@@ -66,18 +72,21 @@ function Footer() {
                                     target="_blank"
                                     rel="noreferrer"
                                     aria-label={social.label}
-                                    className="rounded-full bg-white/[0.08] p-3 text-white/80 transition-colors hover:bg-white/[0.15] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
+                                    className="rounded-full bg-white/[0.08] p-3 text-white/80 transition-all duration-300 hover:scale-110 hover:bg-white/[0.15] hover:text-white active:scale-95 active:bg-white/[0.15] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
                                 >
                                     <Icon className="h-4 w-4" />
                                 </a>
                             );
                         })}
                     </div>
-                </div>
+                </FadeIn>
 
                 <div className="my-8 h-px w-full bg-white/[0.08]" />
 
-                <div className="flex flex-col justify-between gap-6 md:flex-row">
+                <FadeIn
+                    custom={1}
+                    className="flex flex-col justify-between gap-6 md:flex-row"
+                >
                     <div className="space-y-1">
                         <p className="text-sm text-white/60">
                             © 2026 Luro Tech
@@ -111,7 +120,7 @@ function Footer() {
                             ))}
                         </div>
                     </div>
-                </div>
+                </FadeIn>
             </div>
         </footer>
     );
