@@ -37,7 +37,7 @@ function Navbar() {
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 1, delay: 0.3, ease: [0.25, 0.4, 0.25, 1] }}
             aria-label="Navegação principal"
-            className="fixed bottom-4 left-1/2 z-50 -translate-x-1/2 sm:bottom-auto sm:top-5"
+            className="fixed bottom-[max(1rem,env(safe-area-inset-bottom))] left-1/2 z-50 -translate-x-1/2 sm:bottom-auto sm:top-5"
         >
             <div className="flex items-center gap-1 rounded-full border border-white/[0.08] bg-[#030303]/60 p-1.5 shadow-lg shadow-black/30 backdrop-blur-lg">
                 {links.map((link) => {

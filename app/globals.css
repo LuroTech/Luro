@@ -128,26 +128,4 @@
     font-family: var(--font-be-vietnam), "Be Vietnam Pro", ui-sans-serif,
       system-ui, sans-serif;
   }
-  ::selection {
-    background: rgba(129, 140, 248, 0.35);
-    color: #fff;
-  }
-}
-
-.shimmer {
-  transform: translateX(-130%) skewX(-20deg);
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  @keyframes shimmer-sweep {
-    from {
-      transform: translateX(-130%) skewX(-20deg);
-    }
-    to {
-      transform: translateX(460%) skewX(-20deg);
-    }
-  }
-  .group:hover > .shimmer {
-    animation: shimmer-sweep 0.9s ease forwards;
-  }
 }

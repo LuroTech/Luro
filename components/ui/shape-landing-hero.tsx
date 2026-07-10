@@ -1,13 +1,7 @@
 "use client";
 
-import {
-    motion,
-    useMotionValue,
-    useSpring,
-    useTransform,
-    type Variants,
-} from "framer-motion";
-import { Circle, ChevronDown } from "lucide-react";
+import { motion, type Variants } from "framer-motion";
+import { Circle } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 
@@ -77,39 +71,6 @@ function ElegantShape({
     );
 }
 
-const wordEase = [0.25, 0.4, 0.25, 1] as const;
-
-function AnimatedWords({
-    text,
-    baseDelay,
-    className,
-}: {
-    text: string;
-    baseDelay: number;
-    className?: string;
-}) {
-    return (
-        <>
-            {text.split(" ").map((word, i) => (
-                <motion.span
-                    key={`${word}-${i}`}
-                    initial={{ opacity: 0, y: 28, filter: "blur(8px)" }}
-                    animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                    transition={{
-                        duration: 0.9,
-                        delay: baseDelay + i * 0.12,
-                        ease: wordEase,
-                    }}
-                    className={cn("inline-block", className)}
-                >
-                    {word}
-                    {" "}
-                </motion.span>
-            ))}
-        </>
-    );
-}
-
 function HeroGeometric({
     badge = "Design Collective",
     title1 = "Elevate Your Digital Vision",
@@ -136,37 +97,11 @@ function HeroGeometric({
         }),
     };
 
-    const mouseX = useMotionValue(0);
-    const mouseY = useMotionValue(0);
-    const springX = useSpring(mouseX, { stiffness: 50, damping: 20 });
-    const springY = useSpring(mouseY, { stiffness: 50, damping: 20 });
-    const shapesX = useTransform(springX, [-0.5, 0.5], [-26, 26]);
-    const shapesY = useTransform(springY, [-0.5, 0.5], [-18, 18]);
-    const glowX = useTransform(springX, [-0.5, 0.5], [30, -30]);
-    const glowY = useTransform(springY, [-0.5, 0.5], [22, -22]);
-
-    function handleMouseMove(e: React.MouseEvent<HTMLDivElement>) {
-        const rect = e.currentTarget.getBoundingClientRect();
-        mouseX.set((e.clientX - rect.left) / rect.width - 0.5);
-        mouseY.set((e.clientY - rect.top) / rect.height - 0.5);
-    }
-
-    const title1Words = title1.split(" ").length;
-
     return (
-        <div
-            onMouseMove={handleMouseMove}
-            className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-[#030303]"
-        >
-            <motion.div
-                style={{ x: glowX, y: glowY }}
-                className="absolute inset-0 bg-gradient-to-br from-indigo-500/[0.05] via-transparent to-rose-500/[0.05] blur-3xl"
-            />
+        <div className="relative min-h-svh w-full flex items-center justify-center overflow-hidden bg-[#030303]">
+            <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/[0.05] via-transparent to-rose-500/[0.05] blur-3xl" />
 
-            <motion.div
-                style={{ x: shapesX, y: shapesY }}
-                className="absolute inset-0 overflow-hidden"
-            >
+            <div className="absolute inset-0 overflow-hidden">
                 <ElegantShape
                     delay={0.3}
                     width={600}
@@ -211,7 +146,7 @@ function HeroGeometric({
                     gradient="from-cyan-500/[0.15]"
                     className="left-[20%] md:left-[25%] top-[5%] md:top-[10%]"
                 />
-            </motion.div>
+            </div>
 
             <div className="relative z-10 container mx-auto px-4 md:px-6">
                 <div className="max-w-3xl mx-auto text-center">
@@ -220,41 +155,34 @@ function HeroGeometric({
                         variants={fadeUpVariants}
                         initial="hidden"
                         animate="visible"
-                        whileHover={{ scale: 1.05 }}
                         className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.03] border border-white/[0.08] mb-8 md:mb-12"
                     >
-                        <motion.span
-                            animate={{
-                                scale: [1, 1.4, 1],
-                                opacity: [0.9, 0.5, 0.9],
-                            }}
-                            transition={{
-                                duration: 2.5,
-                                repeat: Number.POSITIVE_INFINITY,
-                                ease: "easeInOut",
-                            }}
-                            className="inline-flex"
-                        >
-                            <Circle className="h-2 w-2 fill-rose-500/80 text-rose-500/80" />
-                        </motion.span>
+                        <Circle className="h-2 w-2 fill-rose-500/80" />
                         <span className="text-sm text-white/60 tracking-wide">
                             {badge}
                         </span>
                     </motion.div>
 
-                    <h1 className="text-4xl sm:text-6xl md:text-8xl font-extrabold mb-6 md:mb-8 tracking-tight">
-                        <AnimatedWords
-                            text={title1}
-                            baseDelay={0.7}
-                            className="bg-clip-text text-transparent bg-gradient-to-b from-white to-white/80"
-                        />
-                        <br />
-                        <AnimatedWords
-                            text={title2}
-                            baseDelay={0.7 + title1Words * 0.12}
-                            className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 via-white/90 to-rose-300"
-                        />
-                    </h1>
+                    <motion.div
+                        custom={1}
+                        variants={fadeUpVariants}
+                        initial="hidden"
+                        animate="visible"
+                    >
+                        <h1 className="text-4xl sm:text-6xl md:text-8xl font-bold mb-6 md:mb-8 tracking-tight">
+                            <span className="bg-clip-text text-transparent bg-gradient-to-b from-white to-white/80">
+                                {title1}
+                            </span>
+                            <br />
+                            <span
+                                className={cn(
+                                    "bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 via-white/90 to-rose-300 "
+                                )}
+                            >
+                                {title2}
+                            </span>
+                        </h1>
+                    </motion.div>
 
                     <motion.div
                         custom={2}
@@ -279,27 +207,6 @@ function HeroGeometric({
                     )}
                 </div>
             </div>
-
-            <motion.a
-                href="#servicos"
-                aria-label="Ver a secção seguinte"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 2, duration: 1 }}
-                className="absolute bottom-6 left-1/2 z-10 -translate-x-1/2 rounded-full p-2 text-white/40 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
-            >
-                <motion.span
-                    animate={{ y: [0, 8, 0] }}
-                    transition={{
-                        duration: 1.8,
-                        repeat: Number.POSITIVE_INFINITY,
-                        ease: "easeInOut",
-                    }}
-                    className="inline-flex"
-                >
-                    <ChevronDown className="h-5 w-5" />
-                </motion.span>
-            </motion.a>
 
             <div className="absolute inset-0 bg-gradient-to-t from-[#030303] via-transparent to-[#030303]/80 pointer-events-none" />
         </div>
